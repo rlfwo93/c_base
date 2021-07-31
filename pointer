@@ -1,0 +1,52 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+
+int main() {
+
+	void *a,*b,*c; //모든타입을 참조가능 - 메모리 copy할때 자주사용.
+
+	//실제 자료값
+	int a1 = 10, b1 = 20;
+	char c1 = '*';
+	int sum = 0;
+
+	//변환할 포인터 변수
+	int* pa, * pb;
+	char* pc;
+	
+	// 참조
+	a = &a1;
+	b = &b1;
+	c = &c1;
+
+	// 형변환
+	pa = (int*)a;
+	pb = (int*)b;
+	pc = (char*)c;
+	
+	switch (*pc)
+	{
+	case '+':
+		printf("%d%c%d=%d", *pa, *pc, *pb, *pa + *pb);
+		break;
+
+	case '-':
+		printf("%d%c%d=%d", *pa, *pc, *pb, *pa - *pb);
+		break;
+
+	case '%':
+		printf("%d%c%d=%d", *pa, *pc, *pb, *pa % *pb);
+		break;
+
+	case '*':
+		printf("%d%c%d=%d", *pa, *pc, *pb, *pa * *pb);
+		break;
+
+	default:
+		break;
+	}
+	
+	
+
+}
