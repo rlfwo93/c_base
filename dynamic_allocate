@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <string.h>
+#define arr_size 100
+#define cpy_arrSize 25
+
+int main() {
+	srand(time(NULL)); // 매번 다른 시드값 생성
+	int sum = 0;
+	unsigned long long mul= 1;
+	int* arr; // 배열생성
+	int cpy_Arr[25]; //arr의 값을 복사받을 배열
+	arr = (int*)malloc(sizeof(int) * arr_size); //동적할당 
+
+	for (int i = 0; i < arr_size; i++) //인덱스 100까지 초기화
+	{
+	
+		arr[i] = rand() % 100+1; // rand함수 생성되는 난수 범위 : 0 ~ 32767
+		printf("%d\n",arr[i]);
+	}
+
+	memcpy(cpy_Arr, arr+50, sizeof(int) * cpy_arrSize); //50번인덱스부터 25개를 복사.
+
+
+	for (int i = 0; i < cpy_arrSize; i++)
+	{
+		printf("%d\n", cpy_Arr[i]);
+		sum += cpy_Arr[i];
+		mul *= cpy_Arr[i];
+	}
+
+	printf("sum = %d\n", sum);
+	printf("mul = %u\n", mul);
+
+	//주소 비교
+	if (arr == cpy_Arr) {
+		printf("address_Same\n");
+	}
+	else {
+		printf("address_Different\n");
+	}
+
+	//값 비교
+	for (int i = 0; i < cpy_arrSize; i++)
+	{
+		if (arr[50 + i] != cpy_Arr[i]) {
+			printf("%d value_Different\n", i);
+		}
+	}
+
+
+	free(arr);
+
+
+}
