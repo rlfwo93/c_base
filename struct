@@ -3,36 +3,37 @@
 #include<string.h>
 
 typedef struct academic_record {
-    int  ID; //기본키 역할
-	char *University;
-	char *name;
-	char *department;
+
+	int  ID; //기본키 역할
+	char University[20];
+	char name[20];
+	char department[20];
 
 }RECORD;
 
 // RECORD compare(RECORD a, int ID);
-RECORD input();
+   RECORD input();
 
-int main(){
-
+int main() {
+	
 	FILE* fp;
 	int count = 0;
 	RECORD record[30];
-
-	fp = fopen("C:/Users/USER/Desktop/pratice/aa.csv", "w"); //경로에 파일을 만듬.
-															 // db형태로 출력하기 위해 csv로 만듬.
-	fputs("학교,학과,이름,학번\n\n", fp); // 열 항목을 파일에 입력
+	double version = 1.f;
+	fp = fopen("C:/Users/ParkJinSeok/Desktop/python/aa.csv", "w"); //경로에 파일을 만듬. db형태로 출력하기 위해 csv로 만듬.
+	fputs("threshhhhhhhhhhhhhhhhhhhhhh\n\n", fp);	//쓰레기 값.			 
+	fputs("\n\n학교,학과,이름,학번\n\n", fp); // 열 항목을 파일에 입력
+	
 
 	while (true)
 	{
-		char judge[10] = "",combine[100] = "";
-		
+		char judge[10] = "", combine[100] = "";
 		RECORD temp = input();
 		bool is_same = false; //ID값 중복판별
-		
-		if (count==0)
-		{	
-			sprintf(combine, "%s,%s,%s,%d\n", temp.University, temp.department, temp.name, temp.ID);
+
+		if (count == 0)
+		{
+			fprintf(fp, "%s,%s,%s,%d\n", temp.University, temp.department, temp.name, temp.ID);
 			record[count] = temp;
 			fputs(combine, fp);
 			count++;
@@ -43,14 +44,15 @@ int main(){
 			{
 				if (record[i].ID == temp.ID) {
 
-						printf("\nID값이 중복입니다. 등록할 수 없습니다\n\n");
-						is_same = true;
-						break;
+					printf("\nID값이 중복입니다. 등록할 수 없습니다\n\n");
+					is_same = true;
+					break;
 				}
 			}
 
 			if (!is_same) {
-				sprintf(combine, "%s,%s,%s,%d\n", temp.University, temp.department, temp.name, temp.ID);
+
+				fprintf(fp, "%s,%s,%s,%d\n", temp.University, temp.department, temp.name, temp.ID);
 				record[count] = temp;
 				fputs(combine, fp);
 				count++;
@@ -60,9 +62,11 @@ int main(){
 		printf("입력을 종료 하시겠습니까? (네)\n");
 		scanf("%s", judge);
 
-		if (strcmp(judge,"네") == 0)  break; 
-		else  continue; 	
+		if (strcmp(judge, "네") == 0)  break;
+		else  continue;
 	}
+	fseek(fp,0,SEEK_SET);
+	fprintf(fp, "\n\nversion :%.1f, 학생수 :%d명\n\n", version, count);
 	fclose(fp);
 }
 /*RECORD compare(RECORD a, int ID) {
@@ -74,16 +78,16 @@ int main(){
 
 };
 */
- RECORD input() {
-	 RECORD record;
-	 char input_University[100] = "", input_Name[100] = "", input_Department[100] = "";
-	 int input_ID = 0;
-	 printf("대학,학과,이름,학번을 입력하세요.\n");
-	 scanf("%s %s %s %d", input_University, input_Department, input_Name, &input_ID);
-	 record.University = input_University;
-	 record.department = input_Department;
-	 record.name = input_Name;
-	 record.ID = input_ID;
+RECORD input() {
+	RECORD record;
+	char input_University[100] = "", input_Name[100] = "", input_Department[100] = "";
+	int input_ID = 0;
+	printf("대학,학과,이름,학번을 입력하세요.\n");
+	scanf("%s %s %s %d", input_University, input_Department, input_Name, &input_ID);
+	strcpy(record.University, input_University);
+	strcpy(record.department, input_Department);
+	strcpy(record.name, input_Name);
+	record.ID = input_ID;
 
-	 return record;
- };
+	return record;
+};
